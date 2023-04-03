@@ -2,93 +2,146 @@ package com.exist.ecc.core.model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+import java.util.Set;
+
 @Entity
 @Table(name = "person")
 public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "pk_person_id")
-    private Long personId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private long id;
 
-    @Column(name = "full_name")
-    private String fullName;
-    @Column
-    private int age;
-    @Column
-    private String address;
-    @Column(name = "mobile_number")
-    private String mobileNumber;
-    @Column
-    private String role;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_name_id")
+    private Name name;
+    //firstName, lastName, MiddleName, suffix, Title
 
-    public Person(String fullName, int age, String address, String mobileNumber, String role) {
-        this.fullName = fullName;
-        this.age = age;
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(name = "fk_address_id")
+    private Address address;
+
+    @Column
+    private Date birthday;
+    @Column
+    private double GWA;
+
+    @Column(name = "date_hired")
+    private Date dateHired;
+    @Column(name = "is_employed")
+    private boolean isEmployed;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_contact_info")
+    private ContactInformation contactInformation;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "person_roles_list",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles;
+
+    public Person(Name name, Address address, Date birthday, double GWA, Date dateHired, boolean isEmployed, ContactInformation contactInformation, Set<Role> roles) {
+        this.name = name;
         this.address = address;
-        this.mobileNumber = mobileNumber;
-        this.role = role;
+        this.birthday = birthday;
+        this.GWA = GWA;
+        this.dateHired = dateHired;
+        this.isEmployed = isEmployed;
+        this.contactInformation = contactInformation;
+        this.roles = roles;
     }
 
     public Person() {
     }
 
-    public Long getPersonId() {
-        return personId;
+    public long getId() {
+        return id;
     }
 
-    public void setPersonId(Long personId) {
-        this.personId = personId;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public Name getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(Name name) {
+        this.name = name;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
-    public String getMobileNumber() {
-        return mobileNumber;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
-    public String getRole() {
-        return role;
+    public double getGWA() {
+        return GWA;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setGWA(double GWA) {
+        this.GWA = GWA;
+    }
+
+    public Date getDateHired() {
+        return dateHired;
+    }
+
+    public void setDateHired(Date dateHired) {
+        this.dateHired = dateHired;
+    }
+
+    public boolean isEmployed() {
+        return isEmployed;
+    }
+
+    public void setEmployed(boolean employed) {
+        isEmployed = employed;
+    }
+
+    public ContactInformation getContactInformation() {
+        return contactInformation;
+    }
+
+    public void setContactInformation(ContactInformation contactInformation) {
+        this.contactInformation = contactInformation;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
     public String toString() {
         return "Person{" +
-                "personId=" + personId +
-                ", fullName='" + fullName + '\'' +
-                ", age=" + age +
-                ", address='" + address + '\'' +
-                ", mobileNumber='" + mobileNumber + '\'' +
-                ", role='" + role + '\'' +
+                "id=" + id +
+                ", name=" + name +
+                ", address=" + address +
+                ", birthday=" + birthday +
+                ", GWA=" + GWA +
+                ", dateHired=" + dateHired +
+                ", isEmployed=" + isEmployed +
+                ", contactInformation=" + contactInformation +
+                ", roles=" + roles +
                 '}';
     }
 }
