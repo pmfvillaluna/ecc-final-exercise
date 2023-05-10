@@ -1,10 +1,16 @@
 package com.exist.ecc.core.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "person")
 public class Person {
@@ -20,7 +26,7 @@ public class Person {
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "fk_address_id")
-    private Address address;
+    private List<Address> address;
 
     @Column
     private Date birthday;
@@ -36,15 +42,16 @@ public class Person {
     @JoinColumn(name = "fk_contact_info")
     private ContactInformation contactInformation;
 
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "person_roles_list",
+            name = "person_role_list",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
 
-    public Person(Name name, Address address, Date birthday, double GWA, Date dateHired, boolean isEmployed, ContactInformation contactInformation, Set<Role> roles) {
+    public Person(Name name, List<Address> address, Date birthday, double GWA, Date dateHired, boolean isEmployed, ContactInformation contactInformation, Set<Role> roles) {
         this.name = name;
         this.address = address;
         this.birthday = birthday;
@@ -74,11 +81,11 @@ public class Person {
         this.name = name;
     }
 
-    public Address getAddress() {
+    public List<Address> getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(List<Address> address) {
         this.address = address;
     }
 

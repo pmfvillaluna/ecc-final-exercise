@@ -1,10 +1,14 @@
 package com.exist.ecc.core.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
-
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "person_role")
 public class Role {
@@ -15,7 +19,8 @@ public class Role {
     @Column(name = "role_name")
     private String roleName;
 
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE})
+    @Column
     private Set<Person> person = new HashSet<>();
 
     public Role(String roleName, Set<Person> person) {
