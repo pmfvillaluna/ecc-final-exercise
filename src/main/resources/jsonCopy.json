@@ -1,0 +1,31 @@
+
+{
+  "name": {
+    "firstName": "Paolo",
+    "lastName": "Villalua",
+    "middleName": "Felismino",
+    "suffix": null,
+    "title": null
+  },
+  "address": [
+    {
+      "streetNumber": null,
+      "barangay": "Mauway",
+      "city": "Mandaluyong",
+      "zipcode": null
+    }
+  ],
+  "birthday": "1999-12-18T00:00:00.000+00:00",
+  "dateHired": null,
+  "contactInformation": {
+    "landline": "534012",
+    "mobileNumber": "09994740111",
+    "email": "paolo.mvillaluna@gmail1234.com"
+  },
+  "roles": [
+    {"roleName":"Admin"},
+    {"roleName":"Manager"}
+  ],
+  "employed": false,
+  "gwa": 0.0
+}
