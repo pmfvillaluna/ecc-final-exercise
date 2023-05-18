@@ -82,4 +82,9 @@ public class Name {
                 ", title='" + title + '\'' +
                 '}';
     }
+
+    public String toFullName(){
+        return title + " " + firstName + " " + middleName + " " + lastName + " " + suffix;
+
+    }
 }
