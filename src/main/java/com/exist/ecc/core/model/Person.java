@@ -8,9 +8,7 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+
 @Entity
 @Table(name = "person")
 public class Person {
