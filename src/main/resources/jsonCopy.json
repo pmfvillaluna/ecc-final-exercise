@@ -4,8 +4,8 @@
     "firstName": "Paolo",
     "lastName": "Villalua",
     "middleName": "Felismino",
-    "suffix": null,
-    "title": null
+    "suffix": "III",
+    "title": "Mr."
   },
   "address": [
     {
@@ -26,6 +26,6 @@
     {"roleName":"Admin"},
     {"roleName":"Manager"}
   ],
-  "employed": false,
-  "gwa": 0.0
+  "employed": true,
+  "gwa": 2.5
 }
