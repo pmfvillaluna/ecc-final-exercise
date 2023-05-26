@@ -1,7 +1,8 @@
 package com.exist.ecc.app.resource;
 
-import com.exist.ecc.core.model.*;
-import com.exist.ecc.core.service.ContactInformationService;
+import com.exist.ecc.core.model.Person;
+import com.exist.ecc.core.model.PersonDTO;
+import com.exist.ecc.core.service.PersonRoleService;
 import com.exist.ecc.core.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/person")
@@ -24,8 +22,7 @@ public class PersonResource {
     private PersonService personService;
 
     @Autowired
-    private ContactInformationService contactInformationService;
-
+    private PersonRoleService personRoleService;
 
     @PostMapping("/create")
     public ResponseEntity<Person> createPerson(@RequestBody Person person){
@@ -34,8 +31,33 @@ public class PersonResource {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<PersonDTO>> getAllPersons(){
-        return new ResponseEntity<>(personService.personToPersonDTO(), HttpStatus.OK);
+    public ResponseEntity<List<PersonDTO>> listAllPersons(){
+        return new ResponseEntity<>(personService.listAllPersonToPersonDTO(), HttpStatus.OK);
+    }
+
+    @GetMapping("/GWA/")
+    public ResponseEntity<List<PersonDTO>> listAllPersonByGWA(){
+        return new ResponseEntity<>(personService.listPersonGWA(), HttpStatus.OK);
+    }
+    @GetMapping("/GWA/DESC")
+    public ResponseEntity<List<PersonDTO>> listAllPersonByGWADESC(){
+        return new ResponseEntity<>(personService.listPersonGWADESC(), HttpStatus.OK);
+    }
+    @GetMapping("/dateHired/")
+    public ResponseEntity<List<PersonDTO>> listAllPersonByDateHired(){
+        return new ResponseEntity<>(personService.listPersonDateHired(), HttpStatus.OK);
+    }
+    @GetMapping("/dateHired/DESC")
+    public ResponseEntity<List<PersonDTO>> listAllPersonByDateHiredDESC(){
+        return new ResponseEntity<>(personService.listPersonDateHired(), HttpStatus.OK);
+    }
+    @GetMapping("/lastName/")
+    public ResponseEntity<List<PersonDTO>> listAllPersonByLastName(){
+        return new ResponseEntity<>(personService.listPersonLastName(), HttpStatus.OK);
+    }
+    @GetMapping("/lastName/DESC")
+    public ResponseEntity<List<PersonDTO>> listAllPersonByLastNameDESC(){
+        return new ResponseEntity<>(personService.listPersonLastNameDESC(), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -50,7 +72,13 @@ public class PersonResource {
     }
 
 
+    @DeleteMapping("/{personId}/role/delete/{roleId}")
+    public ResponseEntity<PersonDTO> deletePersonRoleByRoleId(@PathVariable() long personId, @PathVariable long roleId){
+        return new ResponseEntity<>(personRoleService.deleteRoleToPerson(personId, roleId), HttpStatus.OK);
+    }
 
-
-
+    @PutMapping("/{personId}/role/add/{roleId}")
+    public ResponseEntity<PersonDTO> addPersonRoleByRoleId(@PathVariable() long personId, @PathVariable long roleId){
+        return new ResponseEntity<>(personRoleService.addRoleToPerson(personId, roleId), HttpStatus.OK);
+    }
 }

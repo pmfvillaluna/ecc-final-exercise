@@ -13,20 +13,18 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class RoleDTO {
     long id;
-    Set<String> fullName;
+    Set<Name> personName;
     String roleName;
-
 
     public RoleDTO roleToRoleDTO(Role role){
         if(role != null){
             List<Person> personNames = role.getPerson();
-            Set<String> setOfNamesInRole = personNames
+            Set<Name> setOfNamesInRole = personNames
                     .stream()
                     .map(Person::getName)
-                    .map(Name::toFullName)
                     .collect(Collectors.toSet());
             this.setId(role.getId());
-            this.setFullName(setOfNamesInRole);
+            this.setPersonName(setOfNamesInRole);
             this.setRoleName(role.getRoleName());
             return this;
         }

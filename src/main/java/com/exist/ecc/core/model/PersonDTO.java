@@ -3,7 +3,6 @@ package com.exist.ecc.core.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +20,7 @@ public class PersonDTO {
     private Date dateHired;
     private boolean isEmployed;
     private Double gwa;
-    private ContactInformation contactInformation;
+    private List<ContactInformation> contactInformation;
     private Set<String> roleName;
 
 

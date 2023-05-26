@@ -41,12 +41,10 @@ public class Person {
     @Column(name = "is_employed")
     private boolean isEmployed;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_contact_info")
-    private ContactInformation contactInformation;
+    @OneToMany( cascade = { CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    private List<ContactInformation> contactInformation;
 
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "person_role",
             joinColumns = @JoinColumn(name = "person_id"),
