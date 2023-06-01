@@ -2,6 +2,7 @@ package com.exist.ecc.core.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "person_address")
+@Builder
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +25,5 @@ public class Address {
     private String city;
     @Column
     private String zipcode;
-    @ManyToOne()
-    private Person person;
 
 }

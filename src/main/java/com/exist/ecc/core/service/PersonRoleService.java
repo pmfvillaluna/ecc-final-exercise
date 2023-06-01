@@ -30,23 +30,23 @@ public class PersonRoleService {
     }
 
 
-    public PersonDTO addRoleToPerson(Long personId, Long roleId) {
+    public Person addRoleToPerson(Long personId, Long roleId) {
         Person existingPerson = personRepository.findById(personId)
                 .orElseThrow(() -> new PersonNotFoundException("Person with ID " + personId + " not found"));
         Role roleToAdd = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RoleNotFoundException("Role with ID " + roleId + " not found"));
         existingPerson.getRoles().add(roleToAdd);
         Person updatedPerson = personRepository.save(existingPerson);
-        return convertPersonToPersonDTO(updatedPerson);
+        return existingPerson;
     }
 
-    public PersonDTO deleteRoleToPerson(long personId, long roleId){
+
+    public Person removeRoleFromPersonByRoleId(long personId, long roleId){
         Person existingPerson = personRepository.findById(personId)
                 .orElseThrow(() -> new PersonNotFoundException("Person with ID " + personId + " not found"));
         Role roleToRemove = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RoleNotFoundException("Role with ID " + roleId + " not found"));
         existingPerson.getRoles().remove(roleToRemove);
-        Person updatedPerson = personRepository.save(existingPerson);
-        return convertPersonToPersonDTO(updatedPerson);
+        return personRepository.save(existingPerson);
     }
 }

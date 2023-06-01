@@ -81,9 +81,18 @@ public class PersonService {
         personRepository.deleteById(personId);
     }
 
+
+
     public Person findPersonById(Long personId){
         return personRepository.findById(personId)
                 .orElseThrow(()-> new PersonNotFoundException(("Person with Id: " + personId + " was not found.")));
+    }
+
+    public PersonDTO findPersonDTOById(Long personId){
+        Person result =  personRepository.findById(personId)
+                .orElseThrow(()-> new PersonNotFoundException(("Person with Id: " + personId + " was not found.")));
+        PersonDTO personDTO = new PersonDTO();
+        return personDTO.personToPersonDTO(result);
     }
 
     public PersonDTO convertPersonToPersonDTO(Person person){

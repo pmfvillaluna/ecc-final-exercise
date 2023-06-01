@@ -26,7 +26,7 @@ public class ContactInformationService {
         if(contactInformation != null){
             return contactInformationRepository.save(contactInformation);
         }else{
-            throw new ContactInformationNotFound("Contact Information shouldn't be null");
+            throw new ContactInformationNotFound("No contact information found");
         }
     }
 
