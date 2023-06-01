@@ -1,14 +1,9 @@
 package com.exist.ecc.core.service;
 
-import com.exist.ecc.core.exception.ContactInformationNotFound;
+import com.exist.ecc.exception.ContactInformationNotFound;
 import com.exist.ecc.core.model.ContactInformation;
-import com.exist.ecc.core.model.Name;
-import com.exist.ecc.core.model.Person;
 import com.exist.ecc.core.repository.ContactInformationRepository;
-import org.aspectj.lang.annotation.Before;
-import org.glassfish.jaxb.runtime.v2.runtime.NameBuilder;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,7 +45,7 @@ public class ContactInformationTest {
     }
 
     @Test
-    @DisplayName("update contact information")
+    @DisplayName("Update contact information")
     public void testUpdateContactInformation() {
         Long contactInformationId = 1L;
         ContactInformation existing = new ContactInformation();
@@ -71,13 +66,13 @@ public class ContactInformationTest {
     }
 
     @Test
-    @DisplayName("Won't update ContactInformation with no Id")
+    @DisplayName("Update to fail due to no Id")
     public void testUpdateContactInformationWithNonExistingId() {
 
         Long contactInformationId = 1L;
         ContactInformation updatedContactInformation = new ContactInformation();
         updatedContactInformation.setEmail("newemail@example.com");
-        Mockito.when(contactInformationRepository.findById(contactInformationId)).thenReturn(Optional.empty());
+        Mockito.when(contactInformationRepository.findById(Mockito.eq(contactInformationId))).thenReturn(Optional.empty());
 
         ContactInformation result = contactInformationService.updateContactInformationById(contactInformationId, updatedContactInformation);
 

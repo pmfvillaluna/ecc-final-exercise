@@ -1,7 +1,7 @@
 package com.exist.ecc.core.service;
 
-import com.exist.ecc.core.exception.ContactInformationNotFound;
-import com.exist.ecc.core.exception.PersonNotFoundException;
+import com.exist.ecc.exception.ContactInformationNotFound;
+import com.exist.ecc.exception.PersonNotFoundException;
 import com.exist.ecc.core.model.ContactInformation;
 import com.exist.ecc.core.model.Person;
 import com.exist.ecc.core.model.PersonDTO;

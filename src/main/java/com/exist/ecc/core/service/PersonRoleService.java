@@ -1,7 +1,7 @@
 package com.exist.ecc.core.service;
 
-import com.exist.ecc.core.exception.PersonNotFoundException;
-import com.exist.ecc.core.exception.RoleNotFoundException;
+import com.exist.ecc.exception.PersonNotFoundException;
+import com.exist.ecc.exception.RoleNotFoundException;
 import com.exist.ecc.core.model.Person;
 import com.exist.ecc.core.model.PersonDTO;
 import com.exist.ecc.core.model.Role;
@@ -18,11 +18,7 @@ public class PersonRoleService {
 
     @Autowired
     private RoleRepository roleRepository;
-
-    public Person findPersonById(Long personId){
-        return personRepository.findById(personId)
-                .orElseThrow(()-> new PersonNotFoundException(("Person with Id: " + personId + " was not found.")));
-    }
+    
 
     public PersonDTO convertPersonToPersonDTO(Person person){
         PersonDTO personDTO = new PersonDTO();
@@ -36,8 +32,8 @@ public class PersonRoleService {
         Role roleToAdd = roleRepository.findById(roleId)
                 .orElseThrow(() -> new RoleNotFoundException("Role with ID " + roleId + " not found"));
         existingPerson.getRoles().add(roleToAdd);
-        Person updatedPerson = personRepository.save(existingPerson);
-        return existingPerson;
+        return  personRepository.save(existingPerson);
+
     }
 
 

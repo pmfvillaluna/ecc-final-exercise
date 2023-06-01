@@ -28,7 +28,7 @@ public class PersonResource {
 
     @GetMapping("/{id}")
     public ResponseEntity<PersonDTO> listPersonById(@PathVariable Long id){
-        return new ResponseEntity<>(personService.findPersonDTOById(id), HttpStatus.OK);
+        return new ResponseEntity<>(personService.listPersonDTOById(id), HttpStatus.OK);
     }
 
     @GetMapping("/")
@@ -36,27 +36,27 @@ public class PersonResource {
         return new ResponseEntity<>(personService.listAllPersonToPersonDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/GWA/")
+    @GetMapping("/sort/gwa/")
     public ResponseEntity<List<PersonDTO>> listAllPersonByGWA(){
         return new ResponseEntity<>(personService.listPersonGWA(), HttpStatus.OK);
     }
-    @GetMapping("/GWA/DESC")
+    @GetMapping("/sort/gwa/desc")
     public ResponseEntity<List<PersonDTO>> listAllPersonByGWADESC(){
         return new ResponseEntity<>(personService.listPersonGWADESC(), HttpStatus.OK);
     }
-    @GetMapping("/dateHired/")
+    @GetMapping("/sort/dateHired/")
     public ResponseEntity<List<PersonDTO>> listAllPersonByDateHired(){
         return new ResponseEntity<>(personService.listPersonDateHired(), HttpStatus.OK);
     }
-    @GetMapping("/dateHired/DESC")
+    @GetMapping("/sort/dateHired/desc")
     public ResponseEntity<List<PersonDTO>> listAllPersonByDateHiredDESC(){
         return new ResponseEntity<>(personService.listPersonDateHired(), HttpStatus.OK);
     }
-    @GetMapping("/lastName/")
+    @GetMapping("/sort/lastName/")
     public ResponseEntity<List<PersonDTO>> listAllPersonByLastName(){
         return new ResponseEntity<>(personService.listPersonLastName(), HttpStatus.OK);
     }
-    @GetMapping("/lastName/DESC")
+    @GetMapping("/sort/lastName/desc")
     public ResponseEntity<List<PersonDTO>> listAllPersonByLastNameDESC(){
         return new ResponseEntity<>(personService.listPersonLastNameDESC(), HttpStatus.OK);
     }

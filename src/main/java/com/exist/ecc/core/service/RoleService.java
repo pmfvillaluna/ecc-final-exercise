@@ -1,6 +1,7 @@
 package com.exist.ecc.core.service;
 
-import com.exist.ecc.core.exception.RoleNotFoundException;
+import com.exist.ecc.core.model.Person;
+import com.exist.ecc.exception.RoleNotFoundException;
 import com.exist.ecc.core.model.Role;
 import com.exist.ecc.core.model.RoleDTO;
 import com.exist.ecc.core.repository.RoleRepository;
@@ -25,6 +26,10 @@ public class RoleService {
         if (role==null){
             throw new RoleNotFoundException("No role found in given entry");
         }else{
+            Role roleEntry = new Role();
+            roleEntry.setId(role.getId());
+            roleEntry.setRoleName(role.getRoleName());
+            roleEntry.setPerson(role.getPerson());
             return roleRepository.save(role);
         }
     }
@@ -58,7 +63,20 @@ public class RoleService {
             throw new RoleNotFoundException("Role not found with id: " + id);
         }
     }
-    public void deleteRoleById(Long id){
-        roleRepository.deleteById(id);
+    public void deleteRoleById(Long id) {
+        Optional<Role> optionalRole = roleRepository.findById(id);
+        if (optionalRole.isPresent()) {
+            Role role = optionalRole.get();
+
+            List<Person> persons = role.getPerson();
+            if (persons != null && !persons.isEmpty()) {
+                for (Person person : persons) {
+                    person.getRoles().remove(role);
+                }
+            }
+            roleRepository.delete(role);
+        } else {
+            throw new RoleNotFoundException("Role not found with id: " + id);
+        }
     }
 }

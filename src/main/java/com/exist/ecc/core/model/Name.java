@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "person_name")
+@Table(name = "name")
 public class Name {
 
     @Id
@@ -31,6 +31,5 @@ public class Name {
 
     public String toFullName(){
         return title + " " + firstName + " " + middleName + " " + lastName + " " + suffix;
-
     }
 }

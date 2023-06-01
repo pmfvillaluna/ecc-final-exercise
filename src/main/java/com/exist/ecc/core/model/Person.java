@@ -23,10 +23,9 @@ public class Person {
     @Column
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "fk_name_id")
     private Name name;
-    //firstName, lastName, MiddleName, suffix, Title
 
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "fk_address_id")
@@ -43,7 +42,7 @@ public class Person {
     @Column(name = "is_employed")
     private boolean isEmployed;
 
-    @OneToMany( cascade = { CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToMany( cascade = { CascadeType.PERSIST, CascadeType.REMOVE})
     private List<ContactInformation> contactInformation;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

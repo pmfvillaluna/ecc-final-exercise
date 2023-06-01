@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,10 +20,9 @@ public class PersonDTO {
     private Date birthday;
     private Date dateHired;
     private boolean isEmployed;
-    private Double gwa;
+    private double gwa;
     private List<ContactInformation> contactInformation;
     private Set<String> roleName;
-
 
     public PersonDTO personToPersonDTO(Person person){
         this.setId(person.getId());

@@ -1,7 +1,7 @@
 package com.exist.ecc.core.service;
 
-import com.exist.ecc.core.exception.PersonNotFoundException;
-import com.exist.ecc.core.exception.RoleNotFoundException;
+import com.exist.ecc.exception.PersonNotFoundException;
+import com.exist.ecc.exception.RoleNotFoundException;
 import com.exist.ecc.core.model.Person;
 import com.exist.ecc.core.model.PersonDTO;
 import com.exist.ecc.core.model.Role;
@@ -47,27 +47,27 @@ public class PersonService {
     }
 
     public List<PersonDTO> listPersonGWA(){
-        List<Person> personList = personRepository.listPersonByGWA();
+        List<Person> personList = personRepository.listPersonByGWAAsc();
         return convertPersonListToPersonDTO(personList);
     }
     public List<PersonDTO> listPersonGWADESC(){
-        List<Person> personList = personRepository.listPersonByGWADESC();
+        List<Person> personList = personRepository.listPersonByGWADesc();
         return convertPersonListToPersonDTO(personList);
     }
     public List<PersonDTO> listPersonDateHired(){
-        List<Person> personList = personRepository.listPersonByDateHired();
+        List<Person> personList = personRepository.listPersonByDateHiredAsc();
         return convertPersonListToPersonDTO(personList);
     }
     public List<PersonDTO> listPersonDateHiredDESC(){
-        List<Person> personList = personRepository.listPersonByDateHiredDESC();
+        List<Person> personList = personRepository.listPersonByDateHiredDesc();
         return convertPersonListToPersonDTO(personList);
     }
     public List<PersonDTO> listPersonLastName(){
-        List<Person> personList = personRepository.listPersonByLastName();
+        List<Person> personList = personRepository.listPersonByLastNameAsc();
         return convertPersonListToPersonDTO(personList);
     }
     public List<PersonDTO> listPersonLastNameDESC(){
-        List<Person> personList = personRepository.listPersonByLastNameDESC();
+        List<Person> personList = personRepository.listPersonByLastNameDesc();
         return convertPersonListToPersonDTO(personList);
     }
 
@@ -83,12 +83,12 @@ public class PersonService {
 
 
 
-    public Person findPersonById(Long personId){
+    public Person listPersonById(Long personId){
         return personRepository.findById(personId)
                 .orElseThrow(()-> new PersonNotFoundException(("Person with Id: " + personId + " was not found.")));
     }
 
-    public PersonDTO findPersonDTOById(Long personId){
+    public PersonDTO listPersonDTOById(Long personId){
         Person result =  personRepository.findById(personId)
                 .orElseThrow(()-> new PersonNotFoundException(("Person with Id: " + personId + " was not found.")));
         PersonDTO personDTO = new PersonDTO();
@@ -102,7 +102,7 @@ public class PersonService {
 
 
     public PersonDTO deletePersonRoleByRoleId(Long personId, Long roleId) {
-        Person existingPerson = findPersonById(personId);
+        Person existingPerson = listPersonById(personId);
         Role roleToDelete = existingPerson.getRoles().stream()
                 .filter(role -> role.getId().equals(roleId))
                 .findFirst()

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "person_contact_info")
+@Table(name = "contact_information")
 public class ContactInformation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +25,8 @@ public class ContactInformation {
     @Column(unique = true)
     private String email;
 
+    @ManyToOne
+    private Person person;
 
 
 }

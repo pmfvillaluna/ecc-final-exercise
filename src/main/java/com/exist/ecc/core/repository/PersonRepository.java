@@ -11,19 +11,19 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
 
     @Query("SELECT p FROM Person p ORDER BY p.GWA")
-    List<Person> listPersonByGWA();
+    List<Person> listPersonByGWAAsc();
     @Query("SELECT p FROM Person p ORDER BY p.GWA DESC")
-    List<Person> listPersonByGWADESC();
+    List<Person> listPersonByGWADesc();
 
     @Query("SELECT p FROM Person p ORDER BY p.dateHired")
-    List<Person> listPersonByDateHired();
+    List<Person> listPersonByDateHiredAsc();
     @Query("SELECT p FROM Person p ORDER BY p.dateHired DESC")
-    List<Person> listPersonByDateHiredDESC();
+    List<Person> listPersonByDateHiredDesc();
 
     @Query("SELECT p FROM Person p ORDER BY p.name.lastName")
-    List<Person> listPersonByLastName();
+    List<Person> listPersonByLastNameAsc();
     @Query("SELECT p FROM Person p ORDER BY p.name.lastName DESC")
-    List<Person> listPersonByLastNameDESC();
+    List<Person> listPersonByLastNameDesc();
 
 }
 

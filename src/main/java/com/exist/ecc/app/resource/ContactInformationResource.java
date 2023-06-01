@@ -34,7 +34,7 @@ public class ContactInformationResource {
         return new ResponseEntity<>(contactInformationService.addContactInformationByPersonId(personId, addedContactInformation), HttpStatus.OK);
     }
 
-    @DeleteMapping("/person/{id}/delete/{contactId}")
+    @DeleteMapping("/delete/{contactId}")
     public ResponseEntity<?> deleteContactInformationByPersonIdAndContactId(@PathVariable("id") Long personId,
                                                           @PathVariable("contactId") Long contactId){
         contactInformationService.deleteContactInformationByPersonIdAndContactId(personId, contactId);

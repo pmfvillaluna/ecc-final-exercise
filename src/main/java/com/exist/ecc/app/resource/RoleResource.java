@@ -22,12 +22,12 @@ public class RoleResource {
         return new ResponseEntity<>(roleService.findRolesThenConvertToRoleDTO(), HttpStatus.OK);
     }
 
-    @GetMapping("/list/{id}")
-    public ResponseEntity<RoleDTO> getRoleById(@PathVariable Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<RoleDTO> getRoleById(@PathVariable("id") Long id){
         return new ResponseEntity<>(roleService.findRoleById(id), HttpStatus.OK);
     }
 
-    @PostMapping("/add")
+    @PostMapping("/create")
     public ResponseEntity<Role> createRole(@RequestBody Role createdRole){
         return new ResponseEntity<>(roleService.createRole(createdRole), HttpStatus.OK);
     }

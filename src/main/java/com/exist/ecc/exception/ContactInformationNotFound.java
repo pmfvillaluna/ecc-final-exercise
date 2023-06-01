@@ -1,4 +1,4 @@
-package com.exist.ecc.core.exception;
+package com.exist.ecc.exception;
 
 public class ContactInformationNotFound extends RuntimeException{
     public ContactInformationNotFound(String message){
