@@ -4,28 +4,92 @@
     "firstName": "Paolo",
     "lastName": "Villalua",
     "middleName": "Felismino",
-    "suffix": null,
-    "title": null
+    "suffix": "III",
+    "title": "Mr."
   },
   "address": [
     {
-      "streetNumber": null,
+      "streetNumber": "147 Street",
       "barangay": "Mauway",
       "city": "Mandaluyong",
       "zipcode": null
     }
   ],
-  "birthday": "1999-12-18T00:00:00.000+00:00",
-  "dateHired": null,
-  "contactInformation": {
+  "birthday": "12-18-1999",
+  "dateHired": "12-12-2022",
+  "contactInformation": [{
     "landline": "534012",
     "mobileNumber": "09994740111",
     "email": "paolo.mvillaluna@gmail1234.com"
-  },
-  "roles": [
-    {"roleName":"Admin"},
-    {"roleName":"Manager"}
-  ],
-  "employed": false,
-  "gwa": 0.0
+  }],
+  "roles": [],
+  "employed": true,
+  "gwa": 1.0
+},
+{
+"name": {
+"firstName": "THIS",
+"lastName": "THAT",
+"middleName": "THERE",
+"suffix": "VII",
+"title": "Ms."
+},
+"address": [
+{
+"streetNumber": "124 Jose Gil Street",
+"barangay": "Barangay Tibagan",
+"city": "San Juan City",
+"zipcode": 123
+}
+],
+"birthday": "2000-03-25",
+"dateHired": "2023-05-29",
+"contactInformation": [{
+"landline": "1000001",
+"mobileNumber": "09994740002",
+"email": "here@gmail.com"
+}],
+"roles": null,
+"employed": true,
+"gwa": 1.75
+},
+
+
+"id": 1,
+"name": {
+"id": 1,
+"firstName": "John",
+"lastName": "Doe"
+},
+"address": [
+{
+"id": 1,
+"street": "123 Main St",
+"city": "New York"
+}
+],
+"birthday": "1990-01-01",
+"GWA": 3.5,
+"dateHired": "2022-01-01",
+"isEmployed": true,
+"contactInformation": [
+{
+"id": 1,
+"landline": "123456789",
+"mobileNumber": "987654321",
+"email": "john@example.com"
+},
+{
+"id": 2,
+"landline": "987654321",
+"mobileNumber": "123456789",
+"email": "johndoe@example.com"
+}
+],
+"roles": [
+{
+"id": 1,
+"name": "Role 1"
+}
+]
 }

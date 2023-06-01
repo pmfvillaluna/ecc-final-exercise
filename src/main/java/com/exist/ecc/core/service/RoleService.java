@@ -1,13 +1,15 @@
 package com.exist.ecc.core.service;
 
-import com.exist.ecc.core.model.RoleDTO;
+import com.exist.ecc.core.model.Person;
+import com.exist.ecc.exception.RoleNotFoundException;
 import com.exist.ecc.core.model.Role;
+import com.exist.ecc.core.model.RoleDTO;
 import com.exist.ecc.core.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -15,37 +17,66 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public Role addRole(Role role){return roleRepository.save(role);}
 
     public Optional<Role> getRoleById(Long id){
         return roleRepository.findById(id);
     }
 
-    public Set<RoleDTO> rolesToPersonRolesListDTO(){
-        Set<RoleDTO> properRoles = roleRepository
+    public Role createRole(Role role){
+        if (role==null){
+            throw new RoleNotFoundException("No role found in given entry");
+        }else{
+            Role roleEntry = new Role();
+            roleEntry.setId(role.getId());
+            roleEntry.setRoleName(role.getRoleName());
+            roleEntry.setPerson(role.getPerson());
+            return roleRepository.save(role);
+        }
+    }
+
+    public RoleDTO findRoleById(Long roleId){
+        Role foundRole = roleRepository.findById(roleId)
+                .orElseThrow(()-> new RoleNotFoundException("No role found"));
+
+        RoleDTO roleDTO = new RoleDTO();
+        return roleDTO.roleToRoleDTO(foundRole);
+    }
+    public List<RoleDTO> findRolesThenConvertToRoleDTO(){
+        return roleRepository
                 .findAll()
                 .stream()
                 .map((roles)->{
                     RoleDTO roleDTO = new RoleDTO();
                     return roleDTO.roleToRoleDTO(roles);
-                }).collect(Collectors.toSet());
-        return properRoles;
+                }).collect(Collectors.toList());
     }
-
-    public Set<String> listRoles(){
-        Set<String> roleNames = roleRepository
-                .findAll()
-                .stream()
-                .map(Role::getRoleName)
-                .collect(Collectors.toSet());
-        return roleNames;
+    public RoleDTO updateRoleById(Long id, Role updatedRole) {
+        Optional<Role> optionalRole = roleRepository.findById(id);
+        if (optionalRole.isPresent()) {
+            Role existingRole = optionalRole.get();
+            existingRole.setRoleName(updatedRole.getRoleName());
+            existingRole.setPerson(updatedRole.getPerson());
+            roleRepository.save(existingRole);
+            RoleDTO displayRoleAsDTO = new RoleDTO();
+            return displayRoleAsDTO.roleToRoleDTO(existingRole);
+        } else {
+            throw new RoleNotFoundException("Role not found with id: " + id);
+        }
     }
+    public void deleteRoleById(Long id) {
+        Optional<Role> optionalRole = roleRepository.findById(id);
+        if (optionalRole.isPresent()) {
+            Role role = optionalRole.get();
 
-    public void deleteRoleById(Long id){
-        roleRepository.deleteById(id);
-    }
-
-    public void update(Long id){
-
+            List<Person> persons = role.getPerson();
+            if (persons != null && !persons.isEmpty()) {
+                for (Person person : persons) {
+                    person.getRoles().remove(role);
+                }
+            }
+            roleRepository.delete(role);
+        } else {
+            throw new RoleNotFoundException("Role not found with id: " + id);
+        }
     }
 }
